@@ -13,13 +13,11 @@ public:
     ListNode *merge(ListNode *list1, ListNode *list2){
         ListNode dummyHead(0);
         ListNode *ptr = &dummyHead;
-        
         while(list1 && list2){
-            if(list1 -> val <= list2 -> val){
+            if(list1 -> val < list2 -> val){
                 ptr -> next = list1;
-                list1 = list1 -> next;
-            }
-            else{
+                list1 = list1 ->next;
+            }else{
                 ptr -> next = list2;
                 list2 = list2 -> next;
             }
@@ -27,26 +25,29 @@ public:
         }
         if(list1) ptr -> next = list1;
         else ptr -> next = list2;
-        
         return dummyHead.next;
     }
     
-    ListNode *getMid(ListNode *head){
-        ListNode *midPrev = nullptr;
-        while(head && head -> next){
-            midPrev = (midPrev == nullptr) ? head : midPrev -> next;
-            head = head -> next -> next;
+    ListNode *getMidPrev(ListNode *head){
+        ListNode *slow = nullptr;
+        ListNode *fast = head;
+        while(fast && fast -> next){
+            slow = (slow == nullptr) ? head : slow -> next;
+            fast = fast -> next -> next;
         }
-        ListNode *mid = midPrev -> next;
-        midPrev -> next = nullptr;
-        return mid;
+        return slow;
     }
     
     ListNode* sortList(ListNode* head) {
-        if(!head || !head -> next) return head;
-        ListNode *mid = getMid(head);
+        if(head ==nullptr || head -> next == nullptr ) return head;
+        ListNode *midPrev = getMidPrev(head);
+        ListNode *mid = midPrev -> next;
+        midPrev -> next = nullptr;
+        //list1(head, listPrev) list2(mid, end) 
         ListNode *left = sortList(head);
         ListNode *right = sortList(mid);
+        
         return merge(left, right);
+        
     }
 };
