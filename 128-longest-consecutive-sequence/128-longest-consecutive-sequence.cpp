@@ -7,7 +7,7 @@ public:
         int currentStreak = 1;
         for(int i = 0; i < nums.size() - 1; i++){
             if(nums[i] == nums[i+1]-1) currentStreak++;
-            else if(nums[i] == nums[i+1]) currentStreak = currentStreak;
+            else if(nums[i] == nums[i+1]) continue;
             else currentStreak = 1;
             maxStreak = max(maxStreak, currentStreak);
         }
