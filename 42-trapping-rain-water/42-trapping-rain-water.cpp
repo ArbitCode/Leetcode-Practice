@@ -1,24 +1,21 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        
-        int n = height.size();
-        
-        vector<int> leftMax(n);
-        vector<int> rightMax(n);
-        
-        leftMax[0] = height[0];
-        rightMax[n-1] = height[n-1];
-        
-        for(int i = 1; i < n; i++)
-            leftMax[i] = max(height[i], leftMax[i - 1]);
-        for(int i = n - 2; i >= 0; i--)
-            rightMax[i] = max(height[i], rightMax[i + 1]);
-        
-        int ans = 0;
-        for(int i = 1; i < n-1; i++)
-            ans += min(leftMax[i], rightMax[i]) - height[i];
+        int ans = 0, left = 0, right = height.size() - 1, left_max = 0, right_max = 0;
+        //case problem devide in two part
+        while(left < right){
+            //water kispe ayega, ziska height small ho
+            if(height[left] < height[right]){
+                //pani kb ayega jab height left_max se small ho nhi to left_max update hoga
+                height[left] >= left_max ? left_max = height[left] : ans += left_max - height[left];
+                left++;
+                
+            }else{
+                //pani kb ayega jb height right_max se samll ho nhi to right_max update hoga
+                height[right] >= right_max ? right_max = height[right] : ans += right_max - height[right];
+                right--;
+            }
+        }
         return ans;
-            
     }
 };
