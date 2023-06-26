@@ -11,7 +11,6 @@ public:
                 while(mp.size() > k){
                     mp[fruits[i]]--;
                     if(mp[fruits[i]] == 0) mp.erase(fruits[i]);
-                    //if(mp.size() == k) ans = max(ans, j - i + 1);
                     i++;
                 }
                 j++;
