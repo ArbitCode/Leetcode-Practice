@@ -1,23 +1,28 @@
 /**
- *Definition for singly-linked list.
- *struct ListNode {
- *    int val;
- *    ListNode * next;
- *    ListNode() : val(0), next(nullptr) {}
- *    ListNode(int x) : val(x), next(nullptr) {}
- *    ListNode(int x, ListNode *next) : val(x), next(next) {}
- *};
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
  */
-class Solution
-{
-    public:
-        ListNode* reverseList(ListNode *head)
-        {
-            if (head == nullptr || head->next == nullptr) return head;
-            ListNode *next = head->next;
-            ListNode *new_head = reverseList(head->next);
-            next->next = head;
-            head->next = nullptr;
-            return new_head;
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head == nullptr || head -> next == nullptr) return head;
+        ListNode* prev = nullptr;
+        ListNode* node1 = head;
+        ListNode* node2 = head;
+        while(node1){
+            node2 = node1->next;
+            node1->next = prev;
+            prev = node1;
+            node1 = node2;
+            
         }
+        return prev;
+        
+    }
 };
